@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip python3-venv pipx
     
 RUN apt-get install -y --no-install-recommends \
-    nano vim less htop tree jq unzip zip \
+    nano vim less tree unzip zip \
     tini fastfetch tmux
     
 RUN apt-get install -y --no-install-recommends \
