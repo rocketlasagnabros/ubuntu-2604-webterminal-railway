@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 # Railway/System Envs
 ENV PORT=7681
@@ -8,7 +8,7 @@ ENV PATH="/root/.local/bin:$PATH"
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl wget git \
     python3 python3-pip python3-venv pipx \
-    nano vim less \
+    nano vim less fastfetch \
     tree unzip zip tini tmux \
     ripgrep fd-find procps net-tools iputils-ping dnsutils
  
