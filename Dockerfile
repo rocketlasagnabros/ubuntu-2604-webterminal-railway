@@ -7,11 +7,12 @@ ENV PATH="/root/.local/bin:$PATH"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl wget git \
-    python3 python3-pip python3-venv pipx \
+    python3 python3-pip python3-venv pipx
+    
+RUN apt-get install -y --no-install-recommends \
     nano vim less htop tree jq unzip zip \
     ripgrep fd-find procps net-tools iputils-ping dnsutils \
-    tini fastfetch tmux \
- && rm -rf /var/lib/apt/lists/*
+    tini fastfetch tmux
  
 # Install Tools
 RUN pipx install black && pipx install pytest && pipx install ipython
