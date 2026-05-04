@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     
 RUN apt-get install -y --no-install-recommends \
     nano vim less htop tree jq unzip zip \
-    ripgrep fd-find procps net-tools iputils-ping dnsutils \
     tini fastfetch tmux
+    
+RUN apt-get install -y --no-install-recommends \
+    ripgrep fd-find procps net-tools iputils-ping dnsutils
  
 # Install Tools
 RUN pipx install black && pipx install pytest && pipx install ipython
