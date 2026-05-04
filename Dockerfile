@@ -1,23 +1,34 @@
-FROM ubuntu:26.04
+FROM ubuntu:24.04
 
-# Fallback for local Docker; Railway will override this
+# Railway/System Envs
 ENV PORT=7681
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/root/.local/bin:$PATH"
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-     ca-certificates wget curl git python3 python3-pip tini fastfetch
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl wget git \
+    python3 python3-pip python3-venv pipx \
+    nano vim less htop tree jq unzip zip \
+    ripgrep fd-find procps net-tools iputils-ping dnsutils \
+    tini fastfetch tmux npm \
+ && rm -rf /var/lib/apt/lists/*
+ 
+# Install Tools
+RUN pipx install black && pipx install pytest && pipx install ipython
 
-# Install latest ttyd (auto-updating)
+# Install latest ttyd
 RUN wget -qO /usr/local/bin/ttyd \
     https://github.com/tsl0922/ttyd/releases/latest/download/ttyd.x86_64 \
   && chmod +x /usr/local/bin/ttyd
 
-# Show system info on shell start (fastfetch)
+# Configs
 RUN echo "fastfetch || true" >> /root/.bashrc
+RUN echo "set -g mouse on" >> /root/.tmux.conf
+# Optional: RUN echo "set -g status off" >> /root/.tmux.conf
 
 EXPOSE 7681
 
 ENTRYPOINT ["/usr/bin/tini","--"]
 
-CMD ["/bin/bash","-lc","/usr/local/bin/ttyd --writable -i 0.0.0.0 -p ${PORT} -c ${USERNAME}:${PASSWORD} /bin/bash"]
+# Ensure USERNAME and PASSWORD variables are set in your hosting provider (e.g. Railway)
+CMD ["/bin/bash","-lc","/usr/local/bin/ttyd --writable -i 0.0.0.0 -p ${PORT} -c ${USERNAME}:${PASSWORD} tmux new -A -s main"]
