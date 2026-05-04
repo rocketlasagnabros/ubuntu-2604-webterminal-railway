@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 python3-pip python3-venv pipx \
     nano vim less htop tree jq unzip zip \
     ripgrep fd-find procps net-tools iputils-ping dnsutils \
-    tini fastfetch tmux npm \
+    tini fastfetch tmux \
  && rm -rf /var/lib/apt/lists/*
  
 # Install Tools
